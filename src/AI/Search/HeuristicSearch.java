@@ -7,11 +7,10 @@ import Game.State;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeSearch implements Search {
-
+// I copy and pasted TreeSearch
+public abstract class HeuristicSearch implements Search {
     private final Frontier frontier;
-
-    public TreeSearch(Frontier frontier) {
+    public HeuristicSearch(Frontier frontier) {
         this.frontier = frontier;
     }
 
@@ -23,10 +22,10 @@ public class TreeSearch implements Search {
         return false;
     }
 
+    @Override
     public Solution search(State startingState) {
         Frontier frontier = this.frontier;
-        frontier.insert(new SearchNode(startingState, 0, null, 0));
-
+        frontier.insert(new SearchNode(startingState, 0, null, evalState(startingState, null)));
         while(!frontier.isEmpty()) {
             SearchNode searchNode = frontier.removeNext();
             State state = searchNode.getState();
@@ -41,17 +40,17 @@ public class TreeSearch implements Search {
 
                 int depth = searchNode.getDepth()+1;
 
-                SearchNode childNode = new SearchNode(childState, action, depth, searchNode, 0);
+                SearchNode childNode = new SearchNode(childState, action, depth, searchNode, evalState(childState, searchNode));
 
-//                if(!pruneNode(childNode) && childNode.getState().getOriginal() != null) {
-                if(!pruneNode(childNode)) {
+                if(!pruneNode(childNode))
                     frontier.insert(childNode);
-                }
             }
         }
         return null;
-//        System.out.println("done");
     }
+
+    // This is here because Search is an interface, and SearchNode isn't abstract
+    public abstract int evalState(State state, SearchNode node);
 
     public Solution getSolution(SearchNode searchNode, State startingState) {
         List<SearchNode> path = new ArrayList<>();

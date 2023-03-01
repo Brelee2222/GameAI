@@ -1,6 +1,7 @@
 package AI;
 
 import AI.Search.Frontier.FrontierQueue;
+import AI.Search.Frontier.FrontierStack;
 import AI.Search.SearchNode;
 import AI.Search.TreeSearch;
 
@@ -16,7 +17,7 @@ public class DLDFS extends TreeSearch {
     }
 
     public DLDFS(int depthLimit) {
-        super(new FrontierQueue());
+        super(new FrontierStack());
         this.depthLimit = depthLimit;
     }
 
@@ -27,6 +28,6 @@ public class DLDFS extends TreeSearch {
 
     @Override
     public boolean pruneNode(SearchNode node) {
-        return node.getDepth() > depthLimit;
+        return node.getDepth() > depthLimit || super.pruneNode(node);
     }
 }

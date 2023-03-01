@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface State
 {
-    int heuristic();
+//    int heuristic();
 
     // public constructor (maybe with inputs) that starts at a legal initial state
 
@@ -21,7 +21,9 @@ public interface State
     State duplicate();
 
     // applies the given action to the current state
-    void performAction(Action action);
+    State performAction(Action action);
+
+    int heuristic();
 
     // rolls back the given action from the current state
     // commented out for now, but documented in case we need it later

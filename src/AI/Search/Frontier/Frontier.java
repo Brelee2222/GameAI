@@ -1,6 +1,7 @@
 package AI.Search.Frontier;
 
 import AI.Search.SearchNode;
+import Game.State;
 
 public interface Frontier
 {

@@ -13,9 +13,4 @@ public class DFS extends TreeSearch {
     public String toString() {
         return "Depth First Search";
     }
-
-    @Override
-    public boolean pruneNode(SearchNode node) {
-        return false;
-    }
 }

@@ -6,25 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FrontierStack implements Frontier {
-    List<SearchNode> queue = new ArrayList<>();
+    List<SearchNode> stack = new ArrayList<>();
 
     @Override
     public void clear() {
-        queue.clear();
+        stack.clear();
     }
 
     @Override
     public boolean isEmpty() {
-        return queue.isEmpty();
+        return stack.isEmpty();
     }
 
     @Override
     public void insert(SearchNode node) {
-        queue.add(node);
+        stack.add(node);
     }
 
     @Override
     public SearchNode removeNext() {
-        return queue.remove(queue.size()-1);
+        return stack.remove(stack.size()-1);
     }
 }

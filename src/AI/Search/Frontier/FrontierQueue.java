@@ -1,8 +1,8 @@
 package AI.Search.Frontier;
 
 import AI.Search.SearchNode;
+import Game.State;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -21,6 +21,7 @@ public class FrontierQueue implements Frontier {
 
     @Override
     public void insert(SearchNode node) {
+//        System.out.println("h");
         queue.add(node);
     }
 

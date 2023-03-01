@@ -7,6 +7,9 @@ import java.util.List;
 public class TwoXTwoCube implements State {
     private long pieces;
     private static final long goalState = 0b11000_10100_10000_01100_01000_00100_00000L; // Only 7 pieces are needed
+
+//    private static HashMap<Long, TwoXTwoCube> visitedStates = new HashMap<>();
+
     /**
         bit1 is top or bottom layer
         bit2 is depth
@@ -72,11 +75,6 @@ public class TwoXTwoCube implements State {
     }
 
     @Override
-    public int heuristic() {
-        return 0;
-    }
-
-    @Override
     public List<Action> listActions() {
         return new ArrayList<>(List.of(TurnAction.values()));
     }
@@ -97,9 +95,18 @@ public class TwoXTwoCube implements State {
     }
 
     @Override
-    public void performAction(Action action) {
+    public State performAction(Action action) {
+        TwoXTwoCube cube = new TwoXTwoCube(pieces);
         TurnAction turn = (TurnAction) action;
-        rotateSide(turn.axis, turn.prime);
+        cube.rotateSide(turn.axis, turn.prime);
+        return cube;
+//        if(!visitedStates.containsKey(this.pieces))
+//            visitedStates.put(this.pieces, this);
+    }
+
+    @Override
+    public int heuristic() {
+        return 0;
     }
 
     public enum TurnAction implements Action {
