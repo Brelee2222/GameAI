@@ -15,10 +15,10 @@ public abstract class HeuristicSearch implements Search {
     }
 
     public boolean pruneNode(SearchNode node) {
-        if(node.getParentNode() != null) {
-            SearchNode grandparent = node.getParentNode().getParentNode();
-            return grandparent != null && node.getState().equals(grandparent.getState());
-        }
+//        if(node.getParentNode() != null) {
+//            SearchNode grandparent = node.getParentNode().getParentNode();
+//            return grandparent != null && node.getState().equals(grandparent.getState());
+//        }
         return false;
     }
 

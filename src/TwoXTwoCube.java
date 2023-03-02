@@ -6,9 +6,7 @@ import java.util.List;
 
 public class TwoXTwoCube implements State {
     private long pieces;
-    private static final long goalState = 0b11000_10100_10000_01100_01000_00100_00000L; // Only 7 pieces are needed
-
-//    private static HashMap<Long, TwoXTwoCube> visitedStates = new HashMap<>();
+    public static final long goalState = 0b11000_10100_10000_01100_01000_00100_00000L; // Only 7 pieces are needed
 
     /**
         bit1 is top or bottom layer
@@ -17,7 +15,6 @@ public class TwoXTwoCube implements State {
 
         bits 4 and 5 are for axis (0-2)
      */
-
     public TwoXTwoCube(long pieces) {
         this.pieces = pieces;
     }
@@ -26,15 +23,8 @@ public class TwoXTwoCube implements State {
         this.pieces = goalState;
     }
 
-    public static long getGoalState() {
-        return goalState;
-    }
-
     public void rotateSide(byte axis, boolean prime) {
-        int bit1 = 1 << ((axis + (prime ? 1 : 2)) % 3);
-        int bit2 = 1 << ((axis + (prime ? 2 : 1)) % 3);
-
-        int tempPiece = rotate(axis, getPiece(0));
+        int bit1 = 1 << ((axis + (prime ? 1 : 2)) % 3), bit2 = 1 << ((axis + (prime ? 2 : 1)) % 3), tempPiece = rotate(axis, getPiece(0));
 
         rotateSet(0, bit1, axis);
         rotateSet(bit1, bit1 ^ bit2, axis);
@@ -54,7 +44,6 @@ public class TwoXTwoCube implements State {
 
     private int rotate(byte axis, int piece) {
         // If the white/yellow face aligns with its axis, no rotation is made
-
         if((piece & 0b11) == axis)
             return piece;
 
@@ -68,15 +57,14 @@ public class TwoXTwoCube implements State {
 
     @Override
     public boolean equals(Object otherState) {
-        if(otherState.getClass() != TwoXTwoCube.class)
-            return false;
-
-        return ((TwoXTwoCube) otherState).pieces == pieces;
+        return otherState.getClass() == TwoXTwoCube.class && ((TwoXTwoCube) otherState).pieces == pieces;
     }
+
+    List<Action> actions = new ArrayList<>(List.of(TurnAction.values()));
 
     @Override
     public List<Action> listActions() {
-        return new ArrayList<>(List.of(TurnAction.values()));
+        return actions;
     }
 
     @Override
@@ -86,7 +74,6 @@ public class TwoXTwoCube implements State {
 
     @Override
     public void display() {
-
     }
 
     @Override
@@ -100,8 +87,6 @@ public class TwoXTwoCube implements State {
         TurnAction turn = (TurnAction) action;
         cube.rotateSide(turn.axis, turn.prime);
         return cube;
-//        if(!visitedStates.containsKey(this.pieces))
-//            visitedStates.put(this.pieces, this);
     }
 
     @Override
@@ -111,15 +96,12 @@ public class TwoXTwoCube implements State {
 
     public enum TurnAction implements Action {
         // _ signifies prime
-
         U(0, false),
         R(1, false),
         F(2, false),
         U_(0, true),
         R_(1, true),
         F_(2, true);
-
-
 
         private final byte axis;
         private final boolean prime;
@@ -131,7 +113,6 @@ public class TwoXTwoCube implements State {
 
         @Override
         public void display() {
-
         }
 
         @Override
@@ -140,3 +121,6 @@ public class TwoXTwoCube implements State {
         }
     }
 }
+/**
+ * 129 lines
+ */

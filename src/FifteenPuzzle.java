@@ -55,10 +55,6 @@ public class FifteenPuzzle implements State {
             int distance = (int) Math.abs((index & 0b11) - (tiles & 0b11)) + (int) Math.abs(((index >> 2) & 0b11) - ((tiles >> 2) & 0b11));
             heuristic += distance;
         }
-
-        if((tiles & 0xf) != 15) {
-
-        }
         return heuristic;
     }
 
@@ -116,26 +112,7 @@ public class FifteenPuzzle implements State {
     public State performAction(Action action) {
         int swapPos = ((TileAction) action).getSwapPos(emptyPos);
         return new FifteenPuzzle(swap(swapPos), swapPos);
-
-        /*
-        long tiles = this.tiles;
-
-        HashMap<Integer, FifteenPuzzle> preciseStates = visitedStates.computeIfAbsent((int) tiles, k -> new HashMap<>());
-
-        preciseStates.putIfAbsent((int) (tiles >> 32), this);
-
-         */
     }
-
-    /*
-
-    @Override
-    public State getOriginal() {
-        long tiles = this.tiles;
-        return visitedStates.get((int) tiles).get((int) (tiles >> 32));
-    }
-
-     */
 
     @Override
     public boolean equals(Object otherState) {
