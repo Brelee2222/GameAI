@@ -1,6 +1,5 @@
 package AI;
 
-import AI.Search.Frontier.Frontier;
 import AI.Search.Frontier.FrontierPriorityQueue;
 import AI.Search.HeuristicSearch;
 import AI.Search.SearchNode;

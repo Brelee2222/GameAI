@@ -39,20 +39,48 @@ public class FifteenPuzzle implements State {
     @Override
     public int heuristic() {
         int heuristic = 0;
-        if(this.tiles >> 60 == 1) {
-            for(short tiles = (short) (this.tiles >> 48); tiles != 1; tiles >>= 4) {
-                if((tiles & 0xf) == 4) {
-                    heuristic = 2;
-                    break;
-                }
-            }
-        }
+//        if(this.tiles >> 60 == 1) {
+//            for(short tiles = (short) (this.tiles >> 48); tiles != 1; tiles >>= 4) {
+//                if((tiles & 0xf) == 4) {
+//                    heuristic = 2;
+//                    break;
+//                }
+//            }
+//        }
 
         long tiles = this.tiles;
-        for(int index = 0xf; index != -1; index--, tiles >>= 4) {
-            if((tiles & 0b1111) == 0)
-                continue;
-            int distance = (int) Math.abs((index & 0b11) - (tiles & 0b11)) + (int) Math.abs(((index >> 2) & 0b11) - ((tiles >> 2) & 0b11));
+
+//        if((tiles & 0xf) != 15) {
+//            if((tiles >> 4 & 0xf) == 14) {
+//                heuristic += 2;
+//            }
+//            if((tiles >> 16 & 0xf) == 11) {
+//                heuristic += 2;
+//            }
+//        }
+//
+//        if((tiles >> 12 & 0xf) != 12) {
+//            if((tiles >> 8 & 0xf) == 13) {
+//                heuristic += 2;
+//            }
+//            if((tiles >> 28 & 0xf) == 8) {
+//                heuristic += 2;
+//            }
+//        }
+//
+//        if((tiles >> 48 & 0xf) != 3) {
+//            if((tiles >> 52 & 0xf) == 14) {
+//                heuristic += 2;
+//            }
+//            if((tiles >> 32 & 0xf) == 11) {
+//                heuristic += 2;
+//            }
+//        }
+
+        for(int index = 0xf; tiles != 0; index--, tiles >>= 4) {
+            int tile = (int) tiles;
+
+            int distance = Math.abs((index & 0b11) - (tile & 0b11)) + Math.abs(((index >> 2) & 0b11) - ((tile >> 2) & 0b11));
             heuristic += distance;
         }
         return heuristic;
